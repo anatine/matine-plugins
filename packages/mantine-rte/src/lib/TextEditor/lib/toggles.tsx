@@ -27,7 +27,7 @@ export function toggleMark(
   value?: string | number | boolean
 ) {
   const isActive = isMarkActive(editor, format);
-  console.log('🚀 ~ file: toggles.tsx ~ line 30 ~ isActive', isActive);
+
   if (isActive) {
     Editor.removeMark(editor, format);
   } else {
@@ -38,18 +38,32 @@ export function toggleMark(
 export function isBlockActive(
   editor: Editor,
   format: BLOCK_TYPES,
-  blockType: keyof CustomElement = 'type'
+  blockType: keyof CustomElement = 'type',
+  value?: string | number | boolean,
+  valueKey?: keyof CustomElement
 ) {
   const { selection } = editor;
   if (!selection) return false;
 
+  console.debug('args', format, blockType, value, valueKey);
+
   const [match] = Array.from(
     Editor.nodes(editor, {
       at: Editor.unhangRange(editor, selection),
-      match: (node) =>
-        !Editor.isEditor(node) &&
-        Element.isElement(node) &&
-        node[blockType] === format,
+      match: (node) => {
+        if (Editor.isEditor(node)) return false;
+
+        const nodeMatch = Element.isElement(node) && node[blockType] === format;
+
+        if (nodeMatch) {
+          const valueMatch = !value || node[valueKey || blockType] === value;
+          if (valueMatch) {
+            return true;
+          }
+        }
+
+        return false;
+      },
     })
   );
 
@@ -58,33 +72,38 @@ export function isBlockActive(
 
 export function toggleBlock(
   editor: Editor,
-  format: MARK_TYPES & TEXT_ALIGN_TYPES
+  format: MARK_TYPES & TEXT_ALIGN_TYPES,
+  blockType: keyof CustomElement = 'type',
+  value?: string | number | boolean,
+  valueKey?: keyof CustomElement
 ) {
   const isTextAlign = TEXT_ALIGN_MAP.includes(format as TEXT_ALIGN_TYPES);
-  const isActive = isBlockActive(
-    editor,
-    format,
-    isTextAlign ? 'align' : 'type'
-  );
   const isList = LIST_ELEMENT_MAP.includes(format);
 
-  Transforms.unwrapNodes(editor, {
-    match: (n) =>
-      !Editor.isEditor(n) &&
-      Element.isElement(n) &&
-      LIST_ELEMENT_MAP.includes(n.type) &&
-      !isTextAlign,
-    split: true,
-  });
-  let newProperties: Partial<Element>;
-  if (isTextAlign) {
-    newProperties = {
-      align: isActive ? undefined : format,
-    };
+  const isNonDefaultType = blockType !== 'type';
+
+  const isActive = isBlockActive(editor, format, blockType, value, valueKey);
+
+  const newProperties: Partial<Element> = {};
+  if (isTextAlign || isNonDefaultType) {
+    newProperties[blockType] = isActive ? undefined : format;
+    // newProperties = {
+    //   align: isActive ? undefined : format,
+    // };
   } else {
-    newProperties = {
-      type: isActive ? 'paragraph' : isList ? 'listItem' : format,
-    };
+    Transforms.unwrapNodes(editor, {
+      match: (n) =>
+        !Editor.isEditor(n) &&
+        Element.isElement(n) &&
+        LIST_ELEMENT_MAP.includes(n.type),
+      split: true,
+    });
+    newProperties.type = isActive ? 'paragraph' : format;
+    if (!isActive && value && valueKey) {
+      newProperties[valueKey] = value as never;
+    } else if (valueKey) {
+      newProperties[valueKey] = undefined;
+    }
   }
   Transforms.setNodes<Element>(editor, newProperties);
 
@@ -98,12 +117,10 @@ export function handleHotkey(
   editor: Editor,
   event: React.KeyboardEvent<HTMLDivElement>
 ) {
-  console.log(`handleHotkey`, event);
   for (const hotkey in HOTKEYS) {
     if (isHotkey(hotkey, event)) {
       event.preventDefault();
       const mark = HOTKEYS[hotkey as keyof typeof HOTKEYS];
-      console.log('🚀 ~ file: toggles.tsx ~ line 106 ~ mark', mark);
       toggleMark(editor, mark);
     }
   }

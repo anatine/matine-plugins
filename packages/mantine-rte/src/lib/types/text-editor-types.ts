@@ -48,17 +48,17 @@ export type CustomizedText = {
 //** Element types (blocks of text) */
 export type BLOCK_TYPES = CustomElement['type'];
 export const ELEMENT_MAP: BLOCK_TYPES[] = [
-  'heading',
+  'header',
   'title',
   'paragraph',
   'span',
   'input',
   'textfield',
   'blockquote',
-  'code',
+  'code-block',
   'ordered',
   'unordered',
-  'listItem',
+  'list-item',
 ];
 export const LIST_ELEMENT_MAP: BLOCK_TYPES[] = ['ordered', 'unordered'];
 export const TEXT_ALIGN_MAP: React.CSSProperties['textAlign'][] = [
@@ -76,8 +76,8 @@ export interface BaseCustomElement {
   props?: Record<string, any>;
 }
 //** Defined elements for Mantine */
-export type HeadingElement = BaseCustomElement & {
-  type: 'title' | 'heading';
+export type HeaderElement = BaseCustomElement & {
+  type: 'title' | 'header';
   props?: Omit<TitleProps, 'children'>;
   order?: 1 | 2 | 3 | 4 | 5 | 6;
 };
@@ -90,7 +90,7 @@ export type ListElement = BaseCustomElement & {
   props?: Omit<ListProps, 'children'>;
 };
 export type ListItemElement = BaseCustomElement & {
-  type: 'listItem';
+  type: 'list-item';
   props?: Omit<ListItemProps, 'children'>;
 };
 export type TextElement = BaseCustomElement & {
@@ -98,13 +98,13 @@ export type TextElement = BaseCustomElement & {
   props?: Omit<TextProps, 'children'>;
 };
 export type CodeElement = BaseCustomElement & {
-  type: 'code';
+  type: 'code-block';
   props?: Omit<CodeProps, 'children'>;
 };
 
 //** Combines into a union CustomElement for use in declaration */
 export type CustomElement =
-  | HeadingElement
+  | HeaderElement
   | BlockQuoteElement
   | ListElement
   | ListItemElement

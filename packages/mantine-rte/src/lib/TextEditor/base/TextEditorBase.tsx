@@ -5,7 +5,7 @@ import {
   Selectors,
   useComponentDefaultProps,
 } from '@mantine/core';
-import { mergeRefs, useId } from '@mantine/hooks';
+import { useId } from '@mantine/hooks';
 import { forwardRef, PropsWithChildren, useMemo, useRef } from 'react';
 import { createEditor, Descendant, Editor } from 'slate';
 import { withHistory } from 'slate-history';
@@ -54,11 +54,9 @@ export const TextEditorBase = forwardRef<
   const editorRef = useRef<Editor>(editor);
   // mergeRefs(editorRef, ref);
   ref = editorRef;
-  console.log('🚀 ~ file: TextEditorBase.tsx ~ line 56 ~ ref', ref);
 
   //* Initial Value */
   const initValue = useMemo<Descendant[]>(() => {
-    console.log('initialValue', initialValue);
     return !initialValue || typeof initialValue === 'string'
       ? [
           {
@@ -71,7 +69,11 @@ export const TextEditorBase = forwardRef<
   // FORCE CHANGE WHEN VALUES CHANGE
 
   return (
-    <Slate editor={editor} value={initValue}>
+    <Slate
+      editor={editor}
+      value={initValue}
+      onChange={(value) => console.log('onChange', value)}
+    >
       <Box id={editorId} className={cx(classes.root, className)} {...others}>
         {children}
       </Box>

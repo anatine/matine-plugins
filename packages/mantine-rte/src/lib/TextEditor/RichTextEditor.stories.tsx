@@ -17,12 +17,13 @@ Primary.args = {
   radius: 'md',
   initialValue: [
     {
-      type: 'title',
+      type: 'header',
       children: [{ text: 'Welcome to the Text Editor' }],
+      order: 1,
       align: 'center',
     },
     {
-      type: 'title',
+      type: 'header',
       order: 4,
       children: [{ text: 'Based on Slate using Mantine Components' }],
       align: 'center',
@@ -68,7 +69,7 @@ Primary.args = {
     },
     {
       type: 'paragraph',
-      props: { align: 'center' },
+      align: 'center',
       children: [
         { text: '🚀 Try it out for yourself!  ' },
         {

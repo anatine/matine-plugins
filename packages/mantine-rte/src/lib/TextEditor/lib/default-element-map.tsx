@@ -3,7 +3,7 @@ import { Blockquote, List, Text, Title } from '@mantine/core';
 import { ElementMap } from '../../types/text-editor-types';
 
 export const defaultElementMap: ElementMap = {
-  heading: {
+  header: {
     component: Title,
   },
   title: {
@@ -18,7 +18,7 @@ export const defaultElementMap: ElementMap = {
   ordered: {
     component: List,
   },
-  listItem: {
+  'list-item': {
     component: List.Item,
   },
   paragraph: {

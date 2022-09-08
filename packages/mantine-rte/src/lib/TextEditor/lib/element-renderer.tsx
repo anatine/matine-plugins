@@ -18,7 +18,7 @@ export function elementRenderer({
   }: RenderElementProps) {
     const Component = elementMap[element.type].component || Text;
     const order =
-      element.type === 'heading' || element.type === 'title'
+      element.type === 'header' || element.type === 'title'
         ? element.order || 1
         : undefined;
     return (

@@ -59,6 +59,12 @@ import { useRichTextEditorStyles } from './RichTextEditorStyles';
 import DOMRange = globalThis.Range;
 import { handleHotkey } from './lib/toggles';
 import { EditableBase } from './base/EditableBase';
+import { Toolbar } from '../Toolbar/Toolbar';
+import { DEFAULT_CONTROLS, ToolbarControl } from '../Toolbar/controls/controls';
+import {
+  DEFAULT_LABELS,
+  RichTextEditorLabels,
+} from '../Toolbar/controls/editor-labels';
 
 export type RichTextEditorStylesNames = Selectors<
   typeof useRichTextEditorStyles
@@ -71,8 +77,6 @@ export interface RichTextEditorProps
   initialValue?: string | Descendant[];
   //** Radius from theme.radius, or number to set border-radius in px */
   radius?: MantineNumberSize;
-  //** The toolbar component to be placed on the top of the element */
-  toolbar?: ReactElement;
   //** Make slate editor read only */
   readOnly?: boolean;
   //** Editable Props */
@@ -81,6 +85,17 @@ export interface RichTextEditorProps
   //** Editable Text Props */
   editableProps: React.TextareaHTMLAttributes<HTMLDivElement>;
   placeholder?: string;
+  /** Toolbar controls divided into groups */
+  controls: ToolbarControl[][];
+
+  /** Labels used for all toolbar controls */
+  labels: RichTextEditorLabels;
+
+  /** Make toolbar sticky */
+  sticky?: boolean;
+
+  /** Top toolbar position in any valid css value */
+  stickyOffset?: number | string;
 }
 
 export const RichTextEditor = forwardRef<
@@ -95,10 +110,13 @@ export const RichTextEditor = forwardRef<
     styles,
     unstyled,
     placeholder,
-    toolbar,
     renderPlaceholder,
     scrollSelectionIntoView,
     editableProps,
+    controls = DEFAULT_CONTROLS,
+    labels = DEFAULT_LABELS,
+    sticky,
+    stickyOffset,
     ...editorProps
   } = useComponentDefaultProps('RichTextEditor', {}, props);
 
@@ -111,16 +129,21 @@ export const RichTextEditor = forwardRef<
     { classNames, styles: styles as never, unstyled, name: 'RichTextEditor' }
   );
 
-  console.log('classes.editor', classes.editor);
-
   return (
     <TextEditorBase id={editorId} ref={editor} {...editorProps}>
-      {toolbar}
-      <EditableBase
-        className={cx(classes.editor, className)}
-        placeholder={placeholder}
-        editableProps={editableProps}
-      />
+      <>
+        <Toolbar
+          controls={controls}
+          labels={labels}
+          sticky={sticky}
+          stickyOffset={stickyOffset}
+        />
+        <EditableBase
+          className={cx(classes.editor, className)}
+          placeholder={placeholder}
+          editableProps={editableProps}
+        />
+      </>
     </TextEditorBase>
   );
 });
