@@ -51,8 +51,8 @@ import { Toolbar, ToolbarStylesNames } from '../Toolbar/Toolbar';
 import useStyles from './RichTextEditor.styles';
 import { DEFAULT_LABELS, RichTextEditorLabels } from './default-labels';
 import { DEFAULT_CONTROLS } from './default-control';
-import { ToolbarControl } from '../Toolbar/controls';
-import isHotkey from '../is-hotkey';
+import { ToolbarControl } from './controls';
+import isHotkey from '../utils/is-hotkey';
 
 //* Types
 type CustomText = {
@@ -334,6 +334,10 @@ export function leafRenderer({
 
     if (leaf.underline) {
       children = <u>{children}</u>;
+    }
+
+    if (leaf.strikethrough) {
+      children = <del>{children}</del>;
     }
 
     if (leaf.mark) {

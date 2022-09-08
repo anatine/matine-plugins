@@ -1,9 +1,11 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { Editor, Element, Text } from 'slate';
 import { RichTextEditor } from './RichTextEditor';
+import { TextEditorBase } from './base/TextEditorBase';
 
 export default {
   component: RichTextEditor,
-  title: 'Rich Text Editor',
+  title: 'Matine Rich Text Editor',
 } as ComponentMeta<typeof RichTextEditor>;
 
 const Template: ComponentStory<typeof RichTextEditor> = (args) => (
@@ -12,14 +14,30 @@ const Template: ComponentStory<typeof RichTextEditor> = (args) => (
 
 export const Primary = Template.bind({});
 Primary.args = {
+  radius: 'md',
   initialValue: [
+    {
+      type: 'title',
+      children: [{ text: 'Welcome to the Text Editor' }],
+      align: 'center',
+    },
+    {
+      type: 'title',
+      order: 4,
+      children: [{ text: 'Based on Slate using Mantine Components' }],
+      align: 'center',
+    },
+    {
+      type: 'paragraph',
+      children: [{ text: '' }],
+    },
     {
       type: 'paragraph',
       children: [
         { text: 'This is editable ' },
         { text: 'rich', mark: true },
         { text: ' text, ' },
-        { text: 'much', italic: true },
+        { text: 'much', bold: true },
         { text: ' better than a ' },
         { text: '<textarea>', code: true },
         { text: '!' },
@@ -50,10 +68,14 @@ Primary.args = {
     },
     {
       type: 'paragraph',
-      align: 'center',
+      props: { align: 'center' },
       children: [
         { text: '🚀 Try it out for yourself!  ' },
-        { text: "or don't", strikethrough: true },
+        {
+          text: "or don't",
+          strikethrough: true,
+          color: 'red',
+        },
       ],
     },
   ],

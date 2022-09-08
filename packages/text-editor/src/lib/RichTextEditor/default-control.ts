@@ -1,4 +1,4 @@
-import { ToolbarControl } from '../Toolbar/controls';
+import { ToolbarControl } from './controls';
 
 export const DEFAULT_CONTROLS: ToolbarControl[][] = [
   ['bold', 'italic', 'underline', 'strike', 'clean'],

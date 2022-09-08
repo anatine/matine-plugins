@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@anatine/mantine-rte": ["packages/mantine-rte/src/index.ts"],
       "@anatine/mantine-testing": ["packages/testing/src/index.ts"],
       "@anatine/mantine-text-editor": ["packages/text-editor/src/index.ts"]
     }

@@ -2,7 +2,7 @@ import React from 'react';
 import { DefaultProps, Selectors } from '@mantine/core';
 import type { RichTextEditorLabels } from '../RichTextEditor/default-labels';
 import { ToolbarButton } from './ToolbarButton/ToolbarButton';
-import { CONTROLS, ToolbarControl } from './controls';
+import { CONTROLS, ToolbarControl } from '../RichTextEditor/controls';
 import useStyles from './Toolbar.styles';
 
 export type ToolbarStylesNames = Selectors<typeof useStyles>;

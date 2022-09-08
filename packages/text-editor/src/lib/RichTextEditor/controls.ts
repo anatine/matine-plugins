@@ -52,7 +52,7 @@ export const CONTROLS = {
 
   strike: {
     icon: IconStrikethrough,
-    controls: 'strike',
+    controls: 'strikethrough',
   },
 
   unorderedList: {
