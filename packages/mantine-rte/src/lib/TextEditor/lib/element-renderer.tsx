@@ -24,6 +24,7 @@ export function elementRenderer({
     return (
       <Component
         {...attributes}
+        type={element.type}
         align={element.align}
         order={order}
         {...element.props}

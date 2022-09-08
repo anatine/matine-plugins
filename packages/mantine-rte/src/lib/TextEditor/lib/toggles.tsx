@@ -45,8 +45,6 @@ export function isBlockActive(
   const { selection } = editor;
   if (!selection) return false;
 
-  console.debug('args', format, blockType, value, valueKey);
-
   const [match] = Array.from(
     Editor.nodes(editor, {
       at: Editor.unhangRange(editor, selection),
@@ -98,11 +96,12 @@ export function toggleBlock(
         LIST_ELEMENT_MAP.includes(n.type),
       split: true,
     });
-    newProperties.type = isActive ? 'paragraph' : format;
+    newProperties.type = isActive ? 'paragraph' : isList ? 'list-item' : format;
     if (!isActive && value && valueKey) {
       newProperties[valueKey] = value as never;
     } else if (valueKey) {
       newProperties[valueKey] = undefined;
+      newProperties.order = undefined;
     }
   }
   Transforms.setNodes<Element>(editor, newProperties);

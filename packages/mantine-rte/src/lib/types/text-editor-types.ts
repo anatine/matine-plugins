@@ -33,6 +33,8 @@ export const MARK_MAP: MARK_TYPES[] = [
 export type MARK_TYPES = keyof Omit<CustomizedText, 'text' | 'props'>;
 
 export type CustomizedText = {
+  type?: string;
+  order?: number;
   text?: string;
   bold?: boolean;
   italic?: boolean;
@@ -43,6 +45,7 @@ export type CustomizedText = {
   size?: number | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
   color?: string | 'dimmed';
   props?: Omit<TextProps, 'children'>;
+  children?: CustomizedText[];
 };
 
 //** Element types (blocks of text) */
@@ -74,12 +77,12 @@ export interface BaseCustomElement {
   type: string;
   align?: TEXT_ALIGN_TYPES;
   props?: Record<string, any>;
+  order?: 1 | 2 | 3 | 4 | 5 | 6 | number;
 }
 //** Defined elements for Mantine */
 export type HeaderElement = BaseCustomElement & {
   type: 'title' | 'header';
   props?: Omit<TitleProps, 'children'>;
-  order?: 1 | 2 | 3 | 4 | 5 | 6;
 };
 export type BlockQuoteElement = BaseCustomElement & {
   type: 'blockquote';

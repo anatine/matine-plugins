@@ -57,14 +57,12 @@ export const CONTROLS = {
 
   unorderedList: {
     icon: IconList,
-    controls: 'list',
-    value: 'unordered',
+    controls: 'unordered',
   },
 
   orderedList: {
     icon: IconListNumbers,
-    controls: 'list',
-    value: 'ordered',
+    controls: 'ordered',
   },
 
   link: {
