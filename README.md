@@ -7,7 +7,7 @@ Some (hopefully) handy additions to the [Mantine](https://mantine.dev/) componen
 
 ## Rich Text Editor
 
-`@anatine/mantine-text-editor`
+`@anatine/mantine-rte`
 
 ### Overview
 
@@ -48,15 +48,60 @@ npm i  @anatine/mantine-text-editor
 
   const startingText = [
     {
+      type: 'header',
+      children: [
+        {
+          text: 'Welcome to the Text Editor',
+        },
+      ],
+      order: 1,
+      align: 'center',
+    },
+    {
+      type: 'header',
+      order: 4,
+      children: [
+        {
+          text: 'Based on Slate using Mantine Components',
+        },
+      ],
+      align: 'center',
+    },
+    {
       type: 'paragraph',
       children: [
-        { text: 'This is editable ' },
-        { text: 'rich', mark: true },
-        { text: ' text, ' },
-        { text: 'much', italic: true },
-        { text: ' better than a ' },
-        { text: '<textarea>', code: true },
-        { text: '!' },
+        {
+          text: '',
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      children: [
+        {
+          text: 'This is editable ',
+        },
+        {
+          text: 'rich',
+          mark: true,
+        },
+        {
+          text: ' text, ',
+        },
+        {
+          text: 'much',
+          bold: true,
+        },
+        {
+          text: ' better than a ',
+        },
+        {
+          text: '<textarea>',
+          code: true,
+        },
+        {
+          text: '!',
+        },
       ],
     },
     {
@@ -72,7 +117,10 @@ npm i  @anatine/mantine-text-editor
         {
           text: ', you can do things like turn a selection of text ',
         },
-        { text: 'bold', bold: true },
+        {
+          text: 'bold',
+          bold: true,
+        },
         {
           text: ', or add a semantically rendered block quote in the middle of the page, like this:',
         },
@@ -80,14 +128,81 @@ npm i  @anatine/mantine-text-editor
     },
     {
       type: 'blockquote',
-      children: [{ text: 'A wise quote.' }],
+      children: [
+        {
+          text: 'A wise quote.',
+        },
+      ],
+    },
+    {
+      type: 'header',
+      children: [
+        {
+          text: 'Next Steps:',
+        },
+      ],
+      order: 4,
+    },
+    {
+      type: 'ordered',
+      children: [
+        {
+          type: 'list-item',
+          children: [
+            {
+              text: 'Clone repo',
+            },
+          ],
+        },
+        {
+          type: 'list-item',
+          children: [
+            {
+              text: 'Install NPM modules',
+            },
+          ],
+        },
+        {
+          type: 'list-item',
+          children: [
+            {
+              text: 'Run Storybook',
+            },
+          ],
+        },
+        {
+          type: 'list-item',
+          children: [
+            {
+              text: 'Create pull requests to improve the library.',
+            },
+          ],
+        },
+      ],
+    },
+    {
+      type: 'paragraph',
+      children: [
+        {
+          text: '',
+        },
+      ],
     },
     {
       type: 'paragraph',
       align: 'center',
-      children: [{ text: 'Try it out for yourself!' }],
+      children: [
+        {
+          text: '🚀 Try it out for yourself!  ',
+        },
+        {
+          text: "or don't",
+          strikethrough: true,
+          color: 'red',
+        },
+      ],
     },
-  ]
+  ],
 
 ```
 

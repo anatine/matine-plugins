@@ -3,7 +3,6 @@
   "version": 2,
   "projects": {
     "mantine-rte": "packages/mantine-rte",
-    "testing": "packages/testing",
-    "text-editor": "packages/text-editor"
+    "testing": "packages/testing"
   }
 }

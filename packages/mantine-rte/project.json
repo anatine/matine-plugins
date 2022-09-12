@@ -54,7 +54,6 @@
         }
       }
     },
-
     "build-storybook": {
       "executor": "@nrwl/storybook:build",
       "outputs": ["{options.outputPath}"],
