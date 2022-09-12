@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Blockquote, List, Text, Title } from '@mantine/core';
+import { PropsWithChildren } from 'react';
 import { ElementMap } from '../../types/text-editor-types';
 
 export const defaultElementMap: ElementMap = {

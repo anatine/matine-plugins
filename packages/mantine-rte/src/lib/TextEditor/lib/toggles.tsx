@@ -54,7 +54,7 @@ export function isBlockActive(
         const nodeMatch = Element.isElement(node) && node[blockType] === format;
 
         if (nodeMatch) {
-          const valueMatch = !value || node[valueKey || blockType] === value;
+          const valueMatch = !value || !valueKey || node[valueKey] === value;
           if (valueMatch) {
             return true;
           }
@@ -85,9 +85,6 @@ export function toggleBlock(
   const newProperties: Partial<Element> = {};
   if (isTextAlign || isNonDefaultType) {
     newProperties[blockType] = isActive ? undefined : format;
-    // newProperties = {
-    //   align: isActive ? undefined : format,
-    // };
   } else {
     Transforms.unwrapNodes(editor, {
       match: (n) =>
